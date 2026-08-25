@@ -14,7 +14,7 @@ export const HeroSection = ({ t, stats, luckStatus, diceRolling, diceValue, getF
       <div className="md:col-span-5 relative">
         <div className={`absolute -inset-6 bg-gradient-to-tr from-amber-600 to-transparent rounded-full blur-3xl opacity-10`} />
         <div className={`relative aspect-square rounded-3xl border-4 overflow-hidden border-white dark:border-slate-800 shadow-2xl`}>
-          <img src="myimage.jpeg" alt="Hero Avatar" className={`w-full h-full object-cover transition-all duration-700 ${luckStatus === 'fail' ? 'grayscale brightness-50 sepia' : 'grayscale-0'}`} />
+          <img src="profile-picture-ai.png" alt="Hero Avatar" className={`w-full h-full object-cover transition-all duration-700 ${luckStatus === 'fail' ? 'grayscale brightness-50 sepia' : 'grayscale-0'}`} />
           <div className="absolute bottom-0 left-0 w-full p-6 bg-gradient-to-t from-black/90 to-transparent">
             <div className="flex items-center gap-2">
               <div className="bg-amber-500 text-black text-xs font-black px-2 py-0.5 rounded shadow-lg">{t.ui?.lvl} {INITIAL_STATS_DATA.level}</div>

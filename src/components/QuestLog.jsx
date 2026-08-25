@@ -1,5 +1,5 @@
 import React, { useMemo } from 'react';
-import { ScrollText, Trophy } from 'lucide-react';
+import { ScrollText, Shield, Trophy } from 'lucide-react';
 import { SectionHeading } from './SectionHeading';
 import { QUESTS_BASE } from '../lib/data';
 
@@ -36,8 +36,8 @@ export const QuestLog = ({ t, cardClasses, experiencesData }) => {
         
         return {
           id: exp.id,
-          typeKey: i === 0 ? "epic" : "side",
-          type: i === 0 ? "Current Epic" : "Past Campaign",
+          typeKey: period.includes('Present') ? "epic" : "side",
+          type: period.includes('Present') ? "Current Epic" : "Past Campaign",
           period: period,
           title: latestPosition.name || "Adventurer",
           guild: exp.company_name,
@@ -59,10 +59,16 @@ export const QuestLog = ({ t, cardClasses, experiencesData }) => {
         {finalQuests.map((quest, i) => (
           <div key={quest.id} className="relative flex items-center justify-between md:justify-normal md:odd:flex-row-reverse group">
             <div className="flex items-center justify-center w-10 h-10 rounded-full border border-slate-700 bg-slate-900 z-10 shrink-0 md:order-1 md:group-odd:-translate-x-1/2 md:group-even:translate-x-1/2">
-              <Trophy className={`w-5 h-5 ${quest.typeKey === 'epic' ? 'text-amber-500' : 'text-slate-500'}`} />
+              {
+                i % 2 == 0 ? (
+                  <Trophy className={`w-5 h-5 ${quest.typeKey === 'epic' ? 'text-amber-500' : 'text-slate-500'}`} />
+                ) : (
+                  <Shield className={`w-5 h-5 ${quest.typeKey === 'epic' ? 'text-amber-500' : 'text-slate-500'}`} />
+                )
+              }
             </div>
             <div className={`w-[calc(100%-4rem)] md:w-[45%] p-8 rounded-2xl border transition-all hover:-translate-y-2 ${cardClasses}`}>
-              <div className="flex justify-between items-start mb-4">
+              <div className="flex justify-between items-start mb-4 flex-col md:flex-row gap-2">
                 <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">{quest.type}</span>
                 <span className="text-xs font-mono opacity-40">{quest.period}</span>
               </div>

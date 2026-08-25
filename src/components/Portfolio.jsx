@@ -61,7 +61,7 @@ export const Portfolio = ({ t, isDarkMode, projectsData }) => {
             ))}
           </div>
 
-          <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-8 py-1 bg-[#3e2723] rounded-full border-2 border-amber-500/30 text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg">
+          <div className="absolute -top-4 left-1/2 -translate-x-1/2 px-8 py-1 bg-[#3e2723] rounded-full border-2 border-amber-500/30 text-white text-[10px] font-black uppercase tracking-[0.2em] shadow-lg text-center">
              {t.ui?.itemBox}
           </div>
         </div>
@@ -69,7 +69,7 @@ export const Portfolio = ({ t, isDarkMode, projectsData }) => {
 
       {/* INSPECTION MODAL (FOR BACKPACK ITEMS) - FIXED SCROLLING */}
       {inspectedProject && (
-        <div className="fixed inset-0 top-[20%] z-[200] flex items-center justify-center p-4 md:p-8 bg-black/90 backdrop-blur-md animate-in fade-in duration-300">
+        <div className="fixed inset-0 h-[100vh] z-[200] flex items-center justify-center p-4 md:p-8 backdrop-blur-md animate-in fade-in duration-300">
           {/* Scrollable Container Card */}
           <div className={`relative max-w-2xl w-full p-8 md:p-10 rounded-[3rem] border-8 shadow-2xl overflow-y-auto max-h-[90vh] scrollbar-hide ${isDarkMode ? 'bg-[#2a1b15] border-[#3e2723]' : 'bg-[#e5d5c5] border-[#c0a890]'}`}>
             <button 

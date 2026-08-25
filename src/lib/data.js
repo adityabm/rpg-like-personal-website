@@ -8,17 +8,39 @@ const level = currentYear - startCareer;
 let maxHp = 100;
 let maxMana = 100;
 // Check what day today everyday reduce 10 hp and if its weekend reduce 20 hp and if sunday back to 100
-const today = new Date().getDay();
-if (today === 0) { // sunday
-  maxHp = 100;
-  maxMana = 100;
-} else if (today === 6) { // saturday
-  maxHp = maxHp + (today-1 * 10);
-  maxMana = maxMana + (today-1 * 10);
-} else { // weekday
-  maxHp = maxHp - (today * 10);
-  maxMana = maxMana - (today * 10);
+function calculateStatus() {
+  const now = new Date();
+  const day = now.getDay(); // 0: Minggu, 1: Senin, ..., 6: Sabtu
+  const hour = now.getHours();
+  
+  let status = { hp: 0, mana: 0, message: "" };
+
+  switch (day) {
+      case 6: // SABTU (Recovery)
+          // Pulih setiap jam (100 / 24 jam = ~4.16 per jam)
+          status.hp = Math.min(100, Math.floor((hour / 24) * 100));
+          status.mana = Math.min(100, Math.floor((hour / 24) * 100));
+          break;
+
+      case 5: // JUMAT (Bisa 0)
+          status.hp = Math.floor(Math.random() * 101);
+          status.mana = Math.floor(Math.random() * 101);
+          break;
+
+      case 0: // MINGGU (Puncak/Max)
+          status.hp = 100;
+          status.mana = 100;
+          break;
+
+      default: // SENIN - KAMIS (Tidak boleh 0)
+          status.hp = Math.floor(Math.random() * 100) + 1;
+          status.mana = Math.floor(Math.random() * 100) + 1;
+          break;
+  }
+
+  return status;
 }
+const hpToday = calculateStatus();
 
 export const INITIAL_STATS_DATA = {
   name: "Aditya the Paladin",
@@ -27,8 +49,8 @@ export const INITIAL_STATS_DATA = {
   class: "Full-Stack Developer",
   guild: "Mengantar",
   location: "Cloud Realm (Remote)",
-  hp: maxHp,
-  mana: maxMana,
+  hp: hpToday.hp,
+  mana: hpToday.mana,
   bio: "Gather 'round! My journey began in the smithies of vocational school, where I first learned to forge the logic that binds our world. Since the year 2016, I’ve been stationed in the City of Flowers, crafting digital wonders for a local merchant guild. 'Tis a heavy burden I carry, for I also walk the halls of Widyatama Academy to master my craft while the rest of the realm sleeps."
 };
 

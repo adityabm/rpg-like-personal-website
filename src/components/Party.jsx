@@ -18,7 +18,7 @@ export const Party = ({ t, cardClasses }) => (
           </div>
           <p className="text-sm italic opacity-70 leading-relaxed border-l-2 border-amber-500/30 pl-6">"{t.partyData?.[m.quoteKey]}"</p>
           <button onClick={() => window.open(m.link, '_blank')} className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 cursor-pointer mt-6 text-sm">
-            Summon This Party
+            Add to Party
           </button>
         </div>
       ))}
