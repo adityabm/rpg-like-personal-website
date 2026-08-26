@@ -111,7 +111,7 @@ export const Portfolio = ({ t, isDarkMode, projectsData }) => {
                     <Search className="w-3 h-3" /> {t.ui?.inspect}
                   </h4>
                   <p className="text-lg font-serif italic leading-relaxed opacity-90">
-                    "{inspectedProject.desc}"
+                    &quot;{inspectedProject.desc}&quot;
                   </p>
                 </div>
 

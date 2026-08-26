@@ -16,7 +16,7 @@ export const Party = ({ t, cardClasses }) => (
               <p className="text-xs text-amber-500 font-bold uppercase tracking-widest">{t.partyData?.[m.roleKey]}</p>
             </div>
           </div>
-          <p className="text-sm italic opacity-70 leading-relaxed border-l-2 border-amber-500/30 pl-6">"{t.partyData?.[m.quoteKey]}"</p>
+          <p className="text-sm italic opacity-70 leading-relaxed border-l-2 border-amber-500/30 pl-6">&quot;{t.partyData?.[m.quoteKey]}&quot;</p>
           <button onClick={() => window.open(m.link, '_blank')} className="px-4 py-2 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 cursor-pointer mt-6 text-sm">
             Add to Party
           </button>

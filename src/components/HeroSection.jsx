@@ -28,7 +28,7 @@ export const HeroSection = ({ t, stats, luckStatus, diceRolling, diceValue, getF
         <h1 className="text-5xl md:text-7xl font-black tracking-tighter italic uppercase leading-none">
           {firstWord} <span className="text-amber-500">{restOfName}</span>
         </h1>
-        <p className="text-lg leading-relaxed opacity-70 italic border-l-4 border-amber-500 pl-6">"{homepageData?.about_me || t.hero?.bio}"</p>
+        <p className="text-lg leading-relaxed opacity-70 italic border-l-4 border-amber-500 pl-6">&quot;{homepageData?.about_me || t.hero?.bio}&quot;</p>
 
         {homepageData?.hero_stacks && (
           <div className="flex flex-wrap gap-2 pt-2">

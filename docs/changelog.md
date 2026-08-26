@@ -107,4 +107,12 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
+## [2026-08-26] — fix(lint): escape JSX quotation marks
+
+- Fixed six `react/no-unescaped-entities` errors in `HeroSection.jsx`, `Party.jsx`, and `Portfolio.jsx` with HTML entities while preserving the visible copy.
+- Why: restoring the lint gate keeps the project validation checks passing.
+- Docs updated: `docs/changelog.md`.
+
+---
+
 > Last updated: 2026-08-26 — fixer.
