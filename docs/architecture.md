@@ -48,6 +48,8 @@ A write-only `useEffect` mirrors `lang` and `isDarkMode` into `localStorage` so 
 
 `Party.jsx` renders one local character token image per collaborator from `PARTY_MEMBERS_BASE`. Each token is intentionally positioned to overflow the top edge of its card, while the collaborator card content is centered.
 
+`HeroSection.jsx` renders the bilingual, RPG-themed CV CTA from `t.ui.viewCv` (`Open Character Sheet` / `Buka Lembar Karakter`). The anchor opens the supplied Google Docs CV in a new tab with `target="_blank"` and `rel="noopener noreferrer"` so the external destination is opened safely.
+
 ## Rendering model
 
 | Surface | Server / Client | Why |

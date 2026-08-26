@@ -33,6 +33,8 @@ The package is private (`"private": true` in `package.json`) and currently at ve
 ### 2.1 Single-page interactive portfolio
 The entire portfolio is one page (`src/app/page.js`) rendered as a Server Component that fetches CMS data, then handed off to a root Client Component (`ClientPage.jsx`) that orchestrates state, theming, modals, and the scroll-spy navigation.
 
+The Hero includes a bilingual, RPG-themed CV call to action: **Open Character Sheet** in English and **Buka Lembar Karakter** in Indonesian. Both labels open the supplied Google Docs CV in a new tab using `target="_blank"` with `rel="noopener noreferrer"` for safe external navigation.
+
 ### 2.2 CMS-driven content (Directus)
 `page.js` fetches three homepage Directus collections plus a lightweight library index in parallel on the server:
 

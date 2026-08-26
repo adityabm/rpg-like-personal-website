@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Zap, Flame, Dices } from 'lucide-react';
+import { Mail, Zap, Flame, Dices, FileText } from 'lucide-react';
 import { StatBar } from './StatBar';
 import { D20 } from './D20';
 import { INITIAL_STATS_DATA } from '../lib/data';
@@ -47,6 +47,15 @@ export const HeroSection = ({ t, stats, luckStatus, diceRolling, diceValue, getF
           <button onClick={() => window.open('mailto:me@adit.dev', '_blank')} className="px-8 py-3 bg-amber-500 hover:bg-amber-600 text-black font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 shadow-lg shadow-amber-500/20 active:scale-95 cursor-pointer">
             <Mail className="w-5 h-5" /> {t.ui?.message}
           </button>
+
+          <a
+            href="https://docs.google.com/document/d/1lkzmBaRjM4KhO0BzqDY5pG0bXYM0BgX-jCp5JAwwmTU/edit?pli=1&tab=t.0#heading=h.h74zdotbj1kb"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-8 py-3 border border-amber-500/50 text-amber-500 hover:bg-amber-500/10 font-black uppercase tracking-widest rounded-lg transition-all flex items-center gap-2 active:scale-95"
+          >
+            <FileText className="w-5 h-5" /> {t.ui?.viewCv}
+          </a>
           
           <div className="flex items-center gap-4 bg-black/5 p-1 pr-6 rounded-2xl border border-white/5 dark:bg-white/5">
             <button onClick={rollDice} disabled={diceRolling} className="p-3 bg-slate-800 hover:bg-slate-700 disabled:opacity-50 text-amber-500 rounded-xl transition-all active:scale-90 cursor-pointer">

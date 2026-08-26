@@ -151,4 +151,22 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
+## [2026-08-26] — feat(hero): add CV call to action
+
+- Added the bilingual Hero CV CTA.
+- The CTA opens the supplied Google Docs CV in a new tab with `noopener noreferrer` protection.
+- Why: give visitors a direct, safely opened path to the complete CV from the Hero section in either supported language.
+- Docs updated: `docs/overview.md`, `docs/architecture.md`, `docs/changelog.md`.
+
+---
+
+## [2026-08-26] — fix(hero): use RPG-themed CV call to action
+
+- Updated the bilingual Hero CTA labels to `Open Character Sheet` in English and `Buka Lembar Karakter` in Indonesian.
+- Preserved the supplied Google Docs CV destination, new-tab behavior, and `noopener noreferrer` protection.
+- Why: restore RPG-themed language so the CV action remains consistent with the character-sheet experience.
+- Docs updated: `docs/overview.md`, `docs/architecture.md`, `docs/changelog.md`.
+
+---
+
 > Last updated: 2026-08-26 — fixer.
