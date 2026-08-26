@@ -22,6 +22,15 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
+## [2026-08-26] — style(theme): make ambient background static
+
+- Removed drift, glow float, and point twinkle animations from the home atmosphere while retaining the visible grid, blooms, theme treatment, and layering.
+- Kept the reduced-motion safeguard as a defensive reset for the decorative layer.
+- Why: a still background provides depth without adding movement behind the character sheet content.
+- Docs updated: `docs/overview.md`, `docs/changelog.md`.
+
+---
+
 ## [2026-08-26] — feat(library): dedicated /library/[slug] route with book-reading layout
 
 - Replaced the home-page library popup modal with a dedicated per-book route. Clicking a spine on the home shelf now navigates to `/library/[slug]` instead of opening a modal overlay.

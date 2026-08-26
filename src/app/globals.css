@@ -58,7 +58,7 @@ body {
   opacity: 0.72;
   -webkit-mask-image: radial-gradient(ellipse at center, black 0%, black 62%, transparent 100%);
   mask-image: radial-gradient(ellipse at center, black 0%, black 62%, transparent 100%);
-  animation: atmosphere-drift 38s linear infinite;
+  animation: none;
 }
 .atmosphere-orb {
   inset: auto;
@@ -68,7 +68,7 @@ body {
   filter: blur(2px);
   opacity: 0.8;
   mix-blend-mode: screen;
-  animation: atmosphere-float 20s ease-in-out infinite alternate;
+  animation: none;
 }
 .atmosphere-orb--north {
   top: -18rem;
@@ -79,8 +79,6 @@ body {
   bottom: -22rem;
   left: -13rem;
   background: radial-gradient(circle, var(--atmosphere-glow-cool), transparent 66%);
-  animation-delay: -8s;
-  animation-direction: alternate-reverse;
 }
 .atmosphere-stars {
   inset: 0;
@@ -88,19 +86,7 @@ body {
   background-size: 137px 149px;
   background-position: 22px 31px;
   opacity: 0.35;
-  animation: atmosphere-twinkle 12s ease-in-out infinite alternate;
-}
-@keyframes atmosphere-drift {
-  from { transform: translate3d(0, 0, 0); }
-  to { transform: translate3d(46px, -28px, 0); }
-}
-@keyframes atmosphere-float {
-  from { transform: translate3d(-1%, -1%, 0) scale(0.98); }
-  to { transform: translate3d(2%, 2%, 0) scale(1.03); }
-}
-@keyframes atmosphere-twinkle {
-  from { opacity: 0.2; }
-  to { opacity: 0.42; }
+  animation: none;
 }
 @media (prefers-reduced-motion: reduce) {
   .atmosphere-grid,

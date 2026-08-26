@@ -93,7 +93,7 @@ Book records come from the CMS: `src/lib/library.js` exports `fetchLibraryIndex(
 ---
 
 ### 2.15 Ambient background atmosphere
-The home character sheet includes a fixed, pointer-transparent background layer with a clearly perceptible but low-contrast geometric grid, sparse points of light, and two soft color blooms. The layer follows the active hand-rolled theme, sits behind page content, and disables its animations when `prefers-reduced-motion: reduce` is enabled. It is CSS-only and adds no dependency or runtime event listener.
+The home character sheet includes a fixed, pointer-transparent background layer with a clearly perceptible but low-contrast geometric grid, sparse points of light, and two soft color blooms. The layer follows the active hand-rolled theme, sits behind page content, and is fully static so it never animates; the CSS keeps an explicit `prefers-reduced-motion` safeguard. It is CSS-only and adds no dependency or runtime event listener.
 
 ---
 
