@@ -4,6 +4,24 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
+## [2026-08-26] — style(theme): add restrained animated background atmosphere
+
+- Added a fixed CSS-only layer of soft glows, a low-contrast geometric grid, and sparse points of light behind the home page content.
+- Theme colors follow the existing light/dark toggle; ambient motion is disabled under `prefers-reduced-motion`, and the layer remains pointer-transparent.
+- Why: add depth to the character sheet without competing with the RPG content or introducing runtime work and dependencies.
+- Docs updated: `docs/overview.md`, `docs/changelog.md`.
+
+---
+
+## [2026-08-26] — style(theme): clarify ambient grid visibility
+
+- Increased the grid line weight and theme-aware contrast so the geometric pattern reads in both light and dark modes without competing with content.
+- Preserved the existing slow drift and `prefers-reduced-motion` fallback.
+- Why: the original grid treatment was too faint to be perceived during normal page use.
+- Docs updated: `docs/overview.md`, `docs/changelog.md`.
+
+---
+
 ## [2026-08-26] — feat(library): dedicated /library/[slug] route with book-reading layout
 
 - Replaced the home-page library popup modal with a dedicated per-book route. Clicking a spine on the home shelf now navigates to `/library/[slug]` instead of opening a modal overlay.
@@ -115,4 +133,4 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
-> Last updated: 2026-08-26 — fixer.
+> Last updated: 2026-08-26 — designer.

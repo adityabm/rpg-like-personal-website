@@ -92,6 +92,11 @@ Book records come from the CMS: `src/lib/library.js` exports `fetchLibraryIndex(
 
 ---
 
+### 2.15 Ambient background atmosphere
+The home character sheet includes a fixed, pointer-transparent background layer with a clearly perceptible but low-contrast geometric grid, sparse points of light, and two soft color blooms. The layer follows the active hand-rolled theme, sits behind page content, and disables its animations when `prefers-reduced-motion: reduce` is enabled. It is CSS-only and adds no dependency or runtime event listener.
+
+---
+
 ## 3. Technology Stack
 
 ### 3.1 Framework & language
@@ -158,6 +163,7 @@ adit/
 │   │   ├── GuildHall.jsx      # Footer with social links
 │   │   ├── SectionHeading.jsx # Reusable section header
 │   │   ├── D20.jsx            # Custom SVG dice
+│   │   ├── BackgroundAtmosphere.jsx # Fixed ambient grid, glow, and points
 │   │   └── StatBar.jsx        # Reusable HP/mana bar
 │   └── lib/
 │       ├── data.js            # Static fallback data + EN/ID translations
@@ -195,8 +201,9 @@ Both are consumed in `src/app/page.js` and must be present for the CMS-driven ho
 - **Collection name casing is inconsistent** in Directus: `Homepage` (uppercase), `experiences` (lowercase), `Projects` (uppercase), and `Blogs` (uppercase, plural). The API calls use each name verbatim — renaming any of them in Directus without updating the corresponding fetch will silently break the page or library.
 - **Bilingual toggle is wired but disabled** — the language state and translation lookup exist; the UI control that would let users switch between EN and ID is commented out in `ClientPage.jsx`. `ClientPage` mirrors `lang` and `theme` into `localStorage` so `BookReader` on the library route can pick them up on mount.
 - **Dark mode is hand-rolled**, not driven by Tailwind's `dark:` variant — toggling the theme applies a root class and custom CSS rules.
+- **The home background atmosphere is CSS-only** and respects `prefers-reduced-motion`; its decorative layer is mounted by `ClientPage.jsx` and does not intercept pointer input.
 - **No tests, no CI** — the repo has no test runner, no GitHub Actions config, and minimal git history (3 commits on `main`).
 
 ---
 
-> Last updated: 2026-08-26 — fixer.
+> Last updated: 2026-08-26 — designer.

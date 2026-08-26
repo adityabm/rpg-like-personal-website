@@ -10,6 +10,7 @@ import { Library } from '../components/Library';
 import { Party } from '../components/Party';
 import { Portfolio } from '../components/Portfolio';
 import { GuildHall } from '../components/GuildHall';
+import { BackgroundAtmosphere } from '../components/BackgroundAtmosphere';
 
 // SSR-safe initial HP/Mana snapshot. HP/Mana depend on `new Date()` and
 // `Math.random()` (see `getInitialStats` in lib/data.js), so they cannot be
@@ -126,7 +127,7 @@ export default function ClientPage({ homepageData, experiencesData, projectsData
   const cardClasses = isDarkMode ? "bg-slate-900/50 border-slate-800" : "bg-white border-slate-200 shadow-sm";
 
   return (
-    <div className={`min-h-screen transition-colors duration-500 font-sans ${themeClasses} ${screenEffect === 'shake-red' ? 'animate-shake' : screenEffect === 'shake-gold' ? 'animate-vibrate' : ''}`}>
+    <div className={`relative isolate min-h-screen transition-colors duration-500 font-sans ${themeClasses} ${screenEffect === 'shake-red' ? 'animate-shake' : screenEffect === 'shake-gold' ? 'animate-vibrate' : ''}`}>
       
       <style>{`
         @keyframes shake { 0%, 100% { transform: translate(0, 0); } 25% { transform: translate(-10px, 5px); } 50% { transform: translate(10px, -5px); } }
@@ -134,6 +135,8 @@ export default function ClientPage({ homepageData, experiencesData, projectsData
         .animate-shake { animation: shake 0.1s ease-in-out infinite; }
         .animate-vibrate { animation: vibrate 0.08s ease-in-out infinite; }
       `}</style>
+
+      <BackgroundAtmosphere isDarkMode={isDarkMode} />
 
       {/* XP Bar */}
       <div className="fixed top-0 left-0 w-full h-2 z-50 bg-black/20">
@@ -167,7 +170,7 @@ export default function ClientPage({ homepageData, experiencesData, projectsData
         </button>
       </nav>
 
-      <main className="max-w-5xl mx-auto px-6 pt-20 pb-32 space-y-40">
+      <main className="relative z-10 max-w-5xl mx-auto px-6 pt-20 pb-32 space-y-40">
         
         <HeroSection 
           t={t} 

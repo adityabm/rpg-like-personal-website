@@ -25,6 +25,91 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+/* Quiet ambient layer for the home character sheet. */
+.background-atmosphere {
+  --atmosphere-ink: rgba(245, 158, 11, 0.08);
+  --atmosphere-grid-line: rgba(251, 191, 36, 0.16);
+  --atmosphere-glow: rgba(245, 158, 11, 0.11);
+  --atmosphere-glow-cool: rgba(56, 189, 248, 0.06);
+  position: fixed;
+  z-index: 0;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  isolation: isolate;
+}
+.atmosphere--light {
+  --atmosphere-ink: rgba(146, 64, 14, 0.07);
+  --atmosphere-grid-line: rgba(120, 53, 15, 0.14);
+  --atmosphere-glow: rgba(245, 158, 11, 0.1);
+  --atmosphere-glow-cool: rgba(14, 116, 144, 0.045);
+}
+.atmosphere-grid,
+.atmosphere-stars,
+.atmosphere-orb {
+  position: absolute;
+  inset: 0;
+}
+.atmosphere-grid {
+  background-image:
+    linear-gradient(115deg, transparent 0 49.2%, var(--atmosphere-grid-line) 49.6% 50.4%, transparent 50.8%),
+    linear-gradient(25deg, transparent 0 49.2%, var(--atmosphere-grid-line) 49.6% 50.4%, transparent 50.8%);
+  background-size: 96px 96px;
+  opacity: 0.72;
+  -webkit-mask-image: radial-gradient(ellipse at center, black 0%, black 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse at center, black 0%, black 62%, transparent 100%);
+  animation: atmosphere-drift 38s linear infinite;
+}
+.atmosphere-orb {
+  inset: auto;
+  width: min(42vw, 38rem);
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(2px);
+  opacity: 0.8;
+  mix-blend-mode: screen;
+  animation: atmosphere-float 20s ease-in-out infinite alternate;
+}
+.atmosphere-orb--north {
+  top: -18rem;
+  right: -10rem;
+  background: radial-gradient(circle, var(--atmosphere-glow), transparent 67%);
+}
+.atmosphere-orb--south {
+  bottom: -22rem;
+  left: -13rem;
+  background: radial-gradient(circle, var(--atmosphere-glow-cool), transparent 66%);
+  animation-delay: -8s;
+  animation-direction: alternate-reverse;
+}
+.atmosphere-stars {
+  inset: 0;
+  background-image: radial-gradient(circle, var(--atmosphere-ink) 0 1px, transparent 1.5px);
+  background-size: 137px 149px;
+  background-position: 22px 31px;
+  opacity: 0.35;
+  animation: atmosphere-twinkle 12s ease-in-out infinite alternate;
+}
+@keyframes atmosphere-drift {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(46px, -28px, 0); }
+}
+@keyframes atmosphere-float {
+  from { transform: translate3d(-1%, -1%, 0) scale(0.98); }
+  to { transform: translate3d(2%, 2%, 0) scale(1.03); }
+}
+@keyframes atmosphere-twinkle {
+  from { opacity: 0.2; }
+  to { opacity: 0.42; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .atmosphere-grid,
+  .atmosphere-orb,
+  .atmosphere-stars {
+    animation: none;
+  }
+}
+
 /* Book prose — styling for sanitized CMS HTML rendered inside the
    BookReader reading surface. The dark warm ink (`#2a1b15`) matches the
    parchment paper palette used by BookReader.jsx. */
