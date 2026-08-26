@@ -99,4 +99,12 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
-*Last updated: 2026-08-26 — orchestrator.*
+## [2026-08-26] — fix(quest-log): display company names above grouped roles
+
+- Updated the Quest Log experience groups so each group visibly displays its CMS company name above the roles held there.
+- Why: grouped roles need a visible company heading so visitors can immediately associate each role with the correct employer.
+- Docs updated: `docs/overview.md`, `docs/changelog.md`.
+
+---
+
+> Last updated: 2026-08-26 — fixer.

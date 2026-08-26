@@ -65,7 +65,7 @@ The die itself is a custom SVG (`D20.jsx`).
 Hero section displays two `StatBar` components representing HP and Mana. Their initial values are derived from the day of the week (`data.js:8-21`) — a small playful detail.
 
 ### 2.8 Quest Log (work history)
-`QuestLog.jsx` renders the developer's work experience as a timeline. Each Directus `experiences` entry can have multiple `positions` (roles held at that company), grouped under one company heading.
+`QuestLog.jsx` renders the developer's work experience as a timeline. Each Directus `experiences` entry can have multiple `positions` (roles held at that company), grouped under one company heading. Each experience group visibly displays its CMS company name above the roles.
 
 ### 2.9 Adventurer's Backpack / Portfolio
 `Portfolio.jsx` renders projects as an inventory grid with rarity-style badges (color-coded). Clicking a project opens an inspect modal with a longer description and an outbound link to the project. Project preview thumbnails are pulled from `https://cms.adit.dev/assets/...`.
@@ -199,4 +199,4 @@ Both are consumed in `src/app/page.js` and must be present for the CMS-driven ho
 
 ---
 
-*Last updated: 2026-08-26 — orchestrator (library route rework: dedicated /library/[slug] pages, removed popup modal, added sitemap/robots/per-page metadata).*
+> Last updated: 2026-08-26 — fixer.

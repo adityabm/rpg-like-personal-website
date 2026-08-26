@@ -72,10 +72,10 @@ export const QuestLog = ({ t, cardClasses, experiencesData }) => {
                 <span className="text-[10px] font-black uppercase tracking-widest px-3 py-1 rounded bg-amber-500/10 text-amber-500 border border-amber-500/20">{quest.type}</span>
                 <span className="text-xs font-mono opacity-40">{quest.period}</span>
               </div>
+              <p className="text-amber-500 font-bold mb-4">{quest.guild}</p>
               {quest.positions.map((pos, i) => (
                 <div key={i} className={`flex flex-col ${i === quest.positions.length - 1 ? "mb-0" : "mb-4"}`}>
                   <h3 className="text-2xl font-bold mb-1">{pos.name}</h3>
-                  <p className="text-amber-500 font-bold mb-4">{pos.company_name}</p>
                   <p className="text-sm opacity-60 leading-relaxed mb-6 whitespace-pre-wrap">{pos.description}</p>
                   <div className="space-y-3">
                     <p className="text-[10px] font-black uppercase tracking-widest opacity-40">{t.ui?.spellsCast}</p>
