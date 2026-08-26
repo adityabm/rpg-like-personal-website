@@ -7,12 +7,19 @@ const level = currentYear - startCareer;
 
 let maxHp = 100;
 let maxMana = 100;
-// Check what day today everyday reduce 10 hp and if its weekend reduce 20 hp and if sunday back to 100
+// Daily HP/Mana status depends on `new Date()` (current day/hour) and
+// `Math.random()` (Friday and Mon-Thu rolls). Sampling this at module-scope
+// causes an SSR/CSR hydration mismatch because the value the server captures
+// at build time differs from the value the client captures on mount. The
+// safe path: keep the deterministic fields (name/title/level/class/guild/
+// location/bio) as a frozen INITIAL_STATS_DATA constant, and expose the
+// time/random-driven `hp` and `mana` through `getInitialStats()` so the
+// caller can resolve them inside a `useEffect` after hydration.
 function calculateStatus() {
   const now = new Date();
   const day = now.getDay(); // 0: Minggu, 1: Senin, ..., 6: Sabtu
   const hour = now.getHours();
-  
+
   let status = { hp: 0, mana: 0, message: "" };
 
   switch (day) {
@@ -40,7 +47,6 @@ function calculateStatus() {
 
   return status;
 }
-const hpToday = calculateStatus();
 
 export const INITIAL_STATS_DATA = {
   name: "Aditya the Paladin",
@@ -49,10 +55,16 @@ export const INITIAL_STATS_DATA = {
   class: "Full-Stack Developer",
   guild: "Mengantar",
   location: "Cloud Realm (Remote)",
-  hp: hpToday.hp,
-  mana: hpToday.mana,
   bio: "Gather 'round! My journey began in the smithies of vocational school, where I first learned to forge the logic that binds our world. Since the year 2016, I’ve been stationed in the City of Flowers, crafting digital wonders for a local merchant guild. 'Tis a heavy burden I carry, for I also walk the halls of Widyatama Academy to master my craft while the rest of the realm sleeps."
 };
+
+// Sample HP/Mana on demand (client-only). Callers must invoke this from
+// inside a `useEffect` so the server-rendered HTML never carries these
+// non-deterministic values.
+export function getInitialStats() {
+  const { hp, mana } = calculateStatus();
+  return { hp, mana };
+}
 
 export const QUESTS_BASE = [
   {
@@ -150,7 +162,7 @@ export const translations = {
       party: { title: "The Party", subtitle: "Collaborators and companions from my best Party." },
       guild: { title: "The Guild Hall", subtitle: "Official channels to coordinate future expeditions." }
     },
-    ui: { health: "Health", mana: "Mana", lvl: "LVL", message: "Message Bird", fateTitle: "Fate System", rollBtn: "Roll for Initiative!", rolling: "Consulting...", spellsCast: "Spells Cast:", totalArchives: "Total Archives", prohibited: "Magic is prohibited in the library.", guildHall: "Enter the Guild Hall", recorded: "Recorded", archivalRecord: "Archival Record", visit: "View Artifact", copyright: "2026 / CRAFTED WITH REACT & MAGIC", inspect: "Inspect Item", itemBox: "Inventory Slots", stats: "Properties", loot: "Arcane Components", close: "Close" },
+    ui: { health: "Health", mana: "Mana", lvl: "LVL", message: "Message Bird", fateTitle: "Fate System", rollBtn: "Roll for Initiative!", rolling: "Consulting...", spellsCast: "Spells Cast:", totalArchives: "Total Archives", prohibited: "Magic is prohibited in the library.", guildHall: "Enter the Guild Hall", recorded: "Recorded", archivalRecord: "Archival Record", visit: "View Artifact", copyright: "2026 / CRAFTED WITH REACT & MAGIC", inspect: "Inspect Item", itemBox: "Inventory Slots", stats: "Properties", loot: "Arcane Components", close: "Close", backToLibrary: "Back to the Library", prevBook: "Previous Tome", previousBook: "Previous Volume", nextBook: "Next Tome", readingTime: "min read", pennedBy: "Penned by", volume: "Vol.", yearOfEra: "Year {year} of {era}", turnPage: "Turn the page with ← →", emptyLibraryTitle: "The ink has not yet dried.", emptyLibraryBody: "No scrolls have been inscribed in this archive yet. Return when the first tale has been told." },
     fate: {
       critFail: "CRITICAL FAILURE: Your keyboard sparks, a bug enters production, and the coffee machine is empty.",
       fail: "A clumsy effort. The code compiles, but the CSS is haunting your dreams.",
@@ -184,7 +196,7 @@ export const translations = {
       party: { title: "Rekan Perjalanan", subtitle: "Kolaborator dan teman dari kampanye masa lalu." },
       guild: { title: "Balai Serikat", subtitle: "Saluran resmi untuk koordinasi ekspedisi di masa depan." }
     },
-    ui: { health: "Darah", mana: "Mana", lvl: "LVL", message: "Kirim Pesan", fateTitle: "Sistem Takdir", rollBtn: "Lempar Dadu Inisiatif!", rolling: "Menghubungi...", spellsCast: "Mantra:", totalArchives: "Total Arsip", prohibited: "Sihir dilarang di dalam perpustakaan.", guildHall: "Masuki Balai Serikat", recorded: "Dicatat", archivalRecord: "Catatan Arsip", visit: "Lihat Artefak", copyright: "ALBN-99-2026 / SISTEM AMAN / DIBUAT DENGAN REACT & SIHIR", inspect: "Periksa Item", itemBox: "Slot Inventaris", stats: "Properti", loot: "Komponen Arcane", close: "Tutup" },
+    ui: { health: "Darah", mana: "Mana", lvl: "LVL", message: "Kirim Pesan", fateTitle: "Sistem Takdir", rollBtn: "Lempar Dadu Inisiatif!", rolling: "Menghubungi...", spellsCast: "Mantra:", totalArchives: "Total Arsip", prohibited: "Sihir dilarang di dalam perpustakaan.", guildHall: "Masuki Balai Serikat", recorded: "Dicatat", archivalRecord: "Catatan Arsip", visit: "Lihat Artefak", copyright: "ALBN-99-2026 / SISTEM AMAN / DIBUAT DENGAN REACT & SIHIR", inspect: "Periksa Item", itemBox: "Slot Inventaris", stats: "Properti", loot: "Komponen Arcane", close: "Tutup", backToLibrary: "Kembali ke Perpustakaan", prevBook: "Kitab Sebelumnya", previousBook: "Jilid Sebelumnya", nextBook: "Jilid Berikutnya", readingTime: "menit baca", pennedBy: "Ditulis oleh", volume: "Jil.", yearOfEra: "Tahun {year} {era}", turnPage: "Gunakan ← → untuk membalik halaman", emptyLibraryTitle: "Tinta belum kering.", emptyLibraryBody: "Belum ada gulungan yang ditulis di arsip ini. Kembalilah saat kisah pertama selesai dituturkan." },
     fate: {
       critFail: "KEGAGALAN KRITIS: Keyboardmu memercik, bug masuk ke produksi, dan mesin kopi kosong.",
       fail: "Usaha yang canggung. Kode berhasil dikompilasi, tapi CSS menghantui mimpimu.",

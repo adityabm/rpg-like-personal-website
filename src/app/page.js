@@ -1,9 +1,11 @@
 import ClientPage from '../components/ClientPage';
+import { fetchLibraryIndex } from '../lib/library';
 
 export default async function Page() {
   let homepageData = null;
   let experiencesData = null;
   let projectsData = null;
+  let libraryBooksData = null;
 
   try {
     const fetchOptions = {
@@ -13,10 +15,11 @@ export default async function Page() {
       next: { revalidate: 60 } // Revalidate every 60 seconds
     };
 
-    const [homepageRes, experiencesRes, projectsRes] = await Promise.all([
+    const [homepageRes, experiencesRes, projectsRes, libraryBooks] = await Promise.all([
       fetch(`${process.env.DIRECTUS_URL}/items/Homepage`, fetchOptions),
       fetch(`${process.env.DIRECTUS_URL}/items/experiences?sort=-id`, fetchOptions),
-      fetch(`${process.env.DIRECTUS_URL}/items/Projects?sort=-id`, fetchOptions)
+      fetch(`${process.env.DIRECTUS_URL}/items/Projects?sort=-id`, fetchOptions),
+      fetchLibraryIndex(),
     ]);
     
     if (homepageRes.ok) {
@@ -34,9 +37,11 @@ export default async function Page() {
       projectsData = json?.data || [];
     }
 
+    libraryBooksData = libraryBooks;
+
   } catch (error) {
     console.error("Error fetching data:", error);
   }
 
-  return <ClientPage homepageData={homepageData} experiencesData={experiencesData} projectsData={projectsData} />;
+  return <ClientPage homepageData={homepageData} experiencesData={experiencesData} projectsData={projectsData} libraryBooksData={libraryBooksData} />;
 }

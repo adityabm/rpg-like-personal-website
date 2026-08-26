@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
-import { Shield, Wand2, BookOpen, Users, Sun, Moon, ScrollText, X, Languages, ExternalLink, Package, Castle } from 'lucide-react';
-import { INITIAL_STATS_DATA, translations } from '../lib/data';
+import React, { useState, useEffect, useSyncExternalStore } from 'react';
+import { Shield, Wand2, BookOpen, Users, Sun, Moon, ScrollText, Languages, ExternalLink, Package, Castle } from 'lucide-react';
+import { INITIAL_STATS_DATA, translations, getInitialStats } from '../lib/data';
 import { HeroSection } from '../components/HeroSection';
 import { QuestLog } from '../components/QuestLog';
 import { SkillTree } from '../components/SkillTree';
@@ -11,17 +11,38 @@ import { Party } from '../components/Party';
 import { Portfolio } from '../components/Portfolio';
 import { GuildHall } from '../components/GuildHall';
 
-export default function ClientPage({ homepageData, experiencesData, projectsData }) {
+// SSR-safe initial HP/Mana snapshot. HP/Mana depend on `new Date()` and
+// `Math.random()` (see `getInitialStats` in lib/data.js), so they cannot be
+// evaluated at module scope — server-rendered HTML and the first client
+// render must match exactly. `useSyncExternalStore` is the right primitive:
+//   - `getServerSnapshot` returns a fixed 100/100 (deterministic SSR),
+//   - `getSnapshot` returns the real sampled value, computed once and
+//     cached at module scope so each call returns the same reference,
+//   - `subscribe` is a no-op because the value never changes after mount.
+// No `setState` is ever called inside an effect, which keeps the
+// `react-hooks/set-state-in-effect` rule happy.
+const SERVER_STATS = { hp: 100, mana: 100 };
+let cachedClientStats = null;
+const subscribeNoop = () => () => {};
+const getClientStatsSnapshot = () => {
+  if (cachedClientStats === null) cachedClientStats = getInitialStats();
+  return cachedClientStats;
+};
+
+export default function ClientPage({ homepageData, experiencesData, projectsData, libraryBooksData }) {
   const [lang, setLang] = useState('en');
   const [isDarkMode, setIsDarkMode] = useState(true);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [activeTab, setActiveTab] = useState('profile');
-  const [selectedBook, setSelectedBook] = useState(null);
   
   const [diceRolling, setDiceRolling] = useState(false);
   const [diceValue, setDiceValue] = useState(20);
-  const [luckStatus, setLuckStatus] = useState(null); 
-  const [stats, setStats] = useState({ hp: INITIAL_STATS_DATA.hp, mana: INITIAL_STATS_DATA.mana });
+  const [luckStatus, setLuckStatus] = useState(null);
+  // `useSyncExternalStore` — server returns 100/100, client returns the real
+  // sampled value. See the comment block at the top of this file for the
+  // full rationale. The bars rerender with real HP/Mana on the very next
+  // paint after hydration with no warning.
+  const stats = useSyncExternalStore(subscribeNoop, getClientStatsSnapshot, () => SERVER_STATS);
   const [screenEffect, setScreenEffect] = useState(null);
 
   const t = translations[lang] || translations.en;
@@ -53,6 +74,14 @@ export default function ClientPage({ homepageData, experiencesData, projectsData
       observer.disconnect();
     };
   }, []);
+
+  // Persist language/theme prefs so the standalone BookReader route
+  // (/library/[slug]) can pick them up from localStorage on mount. This is
+  // write-only by design — the toggles keep their current behavior.
+  useEffect(() => {
+    localStorage.setItem('lang', lang);
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [lang, isDarkMode]);
 
   const rollDice = () => {
     if (diceRolling) return;
@@ -138,27 +167,6 @@ export default function ClientPage({ homepageData, experiencesData, projectsData
         </button>
       </nav>
 
-      {/* Book Detail Modal */}
-      {selectedBook && (
-        <div className="fixed inset-0 z-[150] flex items-center justify-center p-4 md:p-12 bg-black/95 backdrop-blur-md animate-in fade-in duration-300">
-          <div className="relative max-w-5xl w-full h-[80vh] bg-[#f4ece0] text-slate-900 rounded-lg shadow-2xl flex flex-col md:flex-row overflow-hidden border-[12px] border-[#3e2723]">
-            <button onClick={() => setSelectedBook(null)} className="absolute top-4 right-4 p-2 bg-black/10 hover:bg-black/20 rounded-full z-20 text-slate-800"><X /></button>
-            <div className="flex-1 p-8 md:p-16 border-b md:border-b-0 md:border-r border-black/10 flex flex-col items-center text-center justify-center space-y-6 bg-[url('https://www.transparenttextures.com/patterns/papyros.png')]">
-                <span className="text-xs font-mono font-bold uppercase tracking-[0.4em] text-amber-900">{t.ui?.archivalRecord}</span>
-                <h3 className="font-serif text-5xl font-bold leading-tight text-[#2a1b15]">{selectedBook.title}</h3>
-                <div className="w-32 h-1 bg-[#2a1b15]/20" />
-                <p className="text-sm italic font-serif">{selectedBook.date}</p>
-            </div>
-            <div className="flex-1 p-8 md:p-16 overflow-y-auto bg-[#fdf8f1] bg-[url('https://www.transparenttextures.com/patterns/papyros.png')]">
-              <div className="prose prose-slate font-serif text-lg leading-loose">
-                <span className="text-7xl font-bold float-left mr-4 mt-2 text-amber-800">{(selectedBook.content || "")[0]}</span>
-                {selectedBook.content?.slice(1)}
-              </div>
-            </div>
-          </div>
-        </div>
-      )}
-
       <main className="max-w-5xl mx-auto px-6 pt-20 pb-32 space-y-40">
         
         <HeroSection 
@@ -178,7 +186,7 @@ export default function ClientPage({ homepageData, experiencesData, projectsData
 
         <SkillTree t={t} cardClasses={cardClasses} />
 
-        <Library t={t} isDarkMode={isDarkMode} lang={lang} setSelectedBook={setSelectedBook} />
+        <Library t={t} isDarkMode={isDarkMode} library={libraryBooksData} />
 
         <Party t={t} cardClasses={cardClasses} />
 

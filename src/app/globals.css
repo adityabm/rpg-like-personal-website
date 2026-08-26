@@ -24,3 +24,91 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* Book prose — styling for sanitized CMS HTML rendered inside the
+   BookReader reading surface. The dark warm ink (`#2a1b15`) matches the
+   parchment paper palette used by BookReader.jsx. */
+.book-prose p {
+  margin: 0;
+}
+.book-prose > div > * + * {
+  margin-top: 1.5rem;
+}
+.book-prose a {
+  color: #92400e; /* amber-800, sits on parchment */
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  transition: color 200ms ease;
+}
+.book-prose a:hover {
+  color: #78350f; /* amber-900 */
+}
+.book-prose code {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.875em;
+  background: rgba(42, 27, 21, 0.08);
+  padding: 0.125em 0.375em;
+  border-radius: 0.25rem;
+  border: 1px solid rgba(42, 27, 21, 0.12);
+}
+.book-prose pre {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  background: rgba(42, 27, 21, 0.06);
+  border: 1px solid rgba(42, 27, 21, 0.15);
+  border-radius: 0.5rem;
+  padding: 1rem 1.25rem;
+  overflow-x: auto;
+  margin: 0;
+}
+.book-prose pre code {
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font-size: inherit;
+}
+.book-prose ul,
+.book-prose ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
+.book-prose li {
+  margin: 0.25em 0;
+}
+.book-prose blockquote {
+  margin: 0;
+  padding-left: 1rem;
+  border-left: 3px solid rgba(146, 64, 14, 0.5);
+  font-style: italic;
+  color: rgba(42, 27, 21, 0.85);
+}
+.book-prose h2,
+.book-prose h3,
+.book-prose h4 {
+  font-weight: 700;
+  line-height: 1.25;
+  margin: 0;
+}
+.book-prose h2 { font-size: 1.5rem; }
+.book-prose h3 { font-size: 1.25rem; }
+.book-prose h4 { font-size: 1.125rem; }
+.book-prose strong {
+  font-weight: 700;
+  color: #2a1b15;
+}
+.book-prose em {
+  font-style: italic;
+}
+/* Drop cap on the first prose paragraph — mirrors the home-page book modal. */
+.book-prose > div > p:first-child::first-letter {
+  float: left;
+  font-size: 4.5rem;
+  line-height: 0.85;
+  font-weight: 700;
+  color: #92400e;
+  margin-right: 0.5rem;
+  margin-top: 0.35rem;
+  font-family: var(--font-book-serif, Georgia, serif);
+}
