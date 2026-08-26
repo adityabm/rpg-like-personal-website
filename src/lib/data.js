@@ -145,9 +145,9 @@ export const SKILL_TREE_BASE = [
 ];
 
 export const PARTY_MEMBERS_BASE = [
-  { name: "Dani 'Town Idiot'", roleKey: "se", quoteKey: "dani", link: 'https://nugraha.dev/' },
-  { name: "Berlian 'The Wizard'", roleKey: "fs", quoteKey: "beber", link: 'https://bayuaji.dev/' },
-  { name: "Sheila 'Priestess'", roleKey: "fs", quoteKey: "sheila", link: 'https://sheilaa.dev/' }
+  { name: "Dani 'Town Idiot'", roleKey: "se", quoteKey: "dani", token: "/danitoken.png", link: 'https://nugraha.dev/' },
+  { name: "Berlian 'The Wizard'", roleKey: "fs", quoteKey: "beber", token: "/bebertoken.png", link: 'https://bayuaji.dev/' },
+  { name: "Sheila 'Priestess'", roleKey: "fs", quoteKey: "sheila", token: "/sheilatoken.png", link: 'https://sheilaa.dev/' }
 ];
 
 export const translations = {

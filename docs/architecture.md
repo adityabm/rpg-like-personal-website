@@ -46,6 +46,8 @@ A write-only `useEffect` mirrors `lang` and `isDarkMode` into `localStorage` so 
 `BookReader` owns its own state:
 - `lang`, `theme` (read from `localStorage` on mount, re-read on `storage` events so a future in-page toggle on the home page would propagate without a reload).
 
+`Party.jsx` renders one local character token image per collaborator from `PARTY_MEMBERS_BASE`. Each token is intentionally positioned to overflow the top edge of its card, while the collaborator card content is centered.
+
 ## Rendering model
 
 | Surface | Server / Client | Why |
@@ -81,7 +83,7 @@ src/
 │   ├── QuestLog.jsx
 │   ├── Portfolio.jsx
 │   ├── SkillTree.jsx
-│   ├── Party.jsx
+│   ├── Party.jsx                              # Centered collaborator cards with overflowing local character tokens
 │   ├── GuildHall.jsx
 │   ├── SectionHeading.jsx
 │   ├── D20.jsx

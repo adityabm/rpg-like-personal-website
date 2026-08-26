@@ -82,7 +82,7 @@ The Adventurer's Library is **two halves**:
 Book records come from the CMS: `src/lib/library.js` exports `fetchLibraryIndex()` for the lightweight published `Blogs` index (sorted by `-date_created`) and `fetchLibraryBookById(id)` for one full detail record from `Blogs/{id}`. The index is used by the home shelf, sitemap, static params, and metadata; detail pages resolve the public `/library/[slug]` URL to an ID before fetching the heavy `Content` HTML. Normalized index books use `{id, slug, title, thumbnail, publishedAt}`; detail books add `{excerpt, readingMinutes, content}`. See `docs/features.md` for the full deep-dive and `docs/architecture.md` for the route + data graph.
 
 ### 2.12 Party (colleagues)
-`Party.jsx` renders three profile cards for colleagues / collaborators with external profile links.
+`Party.jsx` renders three profile cards for colleagues / collaborators with external profile links. Each collaborator card renders one local character token image from `PARTY_MEMBERS_BASE`; the token intentionally overflows the card's top edge while the card content remains centered.
 
 ### 2.13 Guild Hall (footer)
 `GuildHall.jsx` is the footer with outbound links (GitHub, LinkedIn, Email) and the copyright line.
@@ -206,4 +206,4 @@ Both are consumed in `src/app/page.js` and must be present for the CMS-driven ho
 
 ---
 
-> Last updated: 2026-08-26 — designer.
+> Last updated: 2026-08-26 — fixer.

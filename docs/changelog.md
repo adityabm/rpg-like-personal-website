@@ -142,4 +142,13 @@ All notable changes to `pribandos` are recorded here, in the order they were com
 
 ---
 
-> Last updated: 2026-08-26 — designer.
+## [2026-08-26] — feat(party): add character tokens to collaborator cards
+
+- `Party.jsx` now renders one local character token image per collaborator from `PARTY_MEMBERS_BASE`.
+- Tokens intentionally overflow each card's top edge, while collaborator card content remains centered.
+- Why: give the redesigned Party cards a distinct character-sheet treatment while keeping each collaborator's information balanced.
+- Docs updated: `docs/overview.md`, `docs/architecture.md`, `docs/changelog.md`.
+
+---
+
+> Last updated: 2026-08-26 — fixer.
